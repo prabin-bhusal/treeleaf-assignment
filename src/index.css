@@ -240,3 +240,20 @@ h1 {
 .linkButton button {
   text-decoration: underline;
 }
+
+.sort-icons {
+  margin: 2px 3px;
+  color: rgb(245, 203, 13);
+  font-size: 1.2rem;
+  height: 30px;
+  width: 30px;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sort-icons:hover {
+  background-color: #535bf2;
+  color: #fff;
+}

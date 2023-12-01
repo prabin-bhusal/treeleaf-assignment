@@ -11,6 +11,8 @@ import {
 
 import { nepalDistricts, nepalProvinces, countries } from "../assets/data";
 
+import { FaSortAlphaDown } from "react-icons/fa";
+
 export default function TableData() {
   const [data, setData] = useState({});
   const [displayCount, setDisplayCount] = useState(5);
@@ -59,6 +61,31 @@ export default function TableData() {
     setDistrict(data[key].data.district);
     setCountry(data[key].data.country);
     handleShow(); // Open the modal
+  };
+
+  const sortAlphaDown = () => {
+    const existingData = JSON.parse(localStorage.getItem("ProfileApp"));
+    if (existingData) {
+      const sortedData = Object.keys(existingData)
+        .sort((a, b) => {
+          const nameA = existingData[a].data.name.toUpperCase();
+          const nameB = existingData[b].data.name.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        })
+        .reduce((acc, key) => {
+          acc[key] = existingData[key];
+          return acc;
+        }, {});
+
+      localStorage.setItem("ProfileApp", JSON.stringify(sortedData));
+      window.location.reload();
+    }
   };
 
   const handleEditChange = (e) => {
@@ -110,7 +137,13 @@ export default function TableData() {
         <thead>
           <tr>
             <th>S.N.</th>
-            <th>Name</th>
+            {/* <th>Name </th> */}
+            <th>
+              Name
+              <span className="sort-icons">
+                <FaSortAlphaDown onClick={sortAlphaDown} />
+              </span>
+            </th>
             <th>Contact Number</th>
             <th>Actions</th>
           </tr>
